@@ -8,8 +8,8 @@ project(ifcb_triton_glue)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  triton_image_classifier
-  sgdrf_msgs
+triton_classifier
+sgdrf_msgs
 )
 
 ## System dependencies are found with CMake's conventions

@@ -1,6 +1,6 @@
 import rospy
 from sgdrf_msgs.msg import CategoricalObservation
-from triton_image_classifier.msg import Classification
+from triton_classifier.msg import Classification
 from sensor_msgs.msg import NavSatFix
 from geometry_msgs.msg import Point
 
