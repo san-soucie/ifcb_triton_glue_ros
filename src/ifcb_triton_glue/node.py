@@ -18,6 +18,7 @@ class Node:
         self.class_subscriber = rospy.Subscriber(class_topic, Classification, self.callback)
         self._latest_fix = None
         self.gps__subscriber = rospy.Subscriber('/gps/fix', NavSatFix, self.latest_fix_setter)
+        rospy.loginfo('Node %s initialized.', rospy.get_name())
     
     def spin(self):
         rospy.spin()
@@ -35,6 +36,7 @@ class Node:
         self.latest_fix = value
     
     def callback(self, msg: Classification):
+        rospy.logdebug('Received new classficiation.')
         best = self.classlist.index(max(msg.results, key = lambda x: x.score).class_)
         obs = [1 if i == best else 0 for i in range(rospy.get_param('~num_words'))]
         current_fix = self.latest_fix
@@ -49,6 +51,7 @@ class Node:
         else:
             point = Point(x = current_fix.longitude, y=current_fix.latitude, z=current_fix.altitude)
         result = CategoricalObservation(header=msg.header, point=point, obs=obs)
+        rospy.logdebug('Publishing classification with GPS info.')
         self.sgdrf_obs_publisher.publish(result)
 
 
